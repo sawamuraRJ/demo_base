@@ -136,7 +136,7 @@ def baucher():
             pagos.extend(result.fetchall())
         cursor.close()
         conn.close()
-    return render_template('baucher.html', datos=pagos)  # <-- cambiar 'pagos' por 'datos' como espera tu HTML
+    return render_template('baucher.html', datos=pagos)  
 
 
 if __name__ == '__main__':
