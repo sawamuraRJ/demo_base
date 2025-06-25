@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Registrar Estudiante</title>
+  <style>
+    body {
+      font-family: Tahoma, sans-serif;
+      background: url('https://piu.cinda.cl/sites/default/files/styles/institucion_instalaciones/public/2022-05/upch-1_0.jpg?itok=WNVp1Yx1') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      padding-top: 30px;
+    }
+
+    .ventana {
+      background-color: #ffffff;
+      border: 2px solid #999;
+      box-shadow: 3px 3px 10px #ccc;
+      width: 480px;
+      padding: 20px 30px;
+    }
+
+    h2 {
+      font-size: 18px;
+      background-color: #003366;
+      color: white;
+      padding: 8px;
+      margin: -20px -30px 20px -30px;
+      text-align: center;
+    }
+
+    label {
+      display: inline-block;
+      width: 160px;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    input, select {
+      font-size: 14px;
+      width: 220px;
+      margin-bottom: 10px;
+    }
+
+    input[type="submit"],
+    .btn-volver {
+      width: auto;
+      padding: 6px 14px;
+      font-weight: bold;
+      background-color: #003366;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    input[type="submit"]:hover,
+    .btn-volver:hover {
+      background-color: #00509e;
+    }
+
+    .linea {
+      margin-bottom: 10px;
+    }
+
+    .mensaje {
+      text-align: center;
+      font-weight: bold;
+      color: green;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="ventana">
+    <h2>Registrar Estudiante</h2>
+
+    {% if mensaje %}
+      <p class="mensaje">{{ mensaje }}</p>
+    {% endif %}
+
+    <form method="POST" action="{{ url_for('registro_estudiante') }}">
+      <div class="linea">
+        <label for="dni">DNI:</label>
+        <input type="text" name="dni" maxlength="8" required>
+      </div>
+
+      <div class="linea">
+        <label for="nombre">Nombre:</label>
+        <input type="text" name="nombre" required>
+      </div>
+
+      <div class="linea">
+        <label for="apellido_paterno">Apellido Paterno:</label>
+        <input type="text" name="apellido_paterno" required>
+      </div>
+
+      <div class="linea">
+        <label for="apellido_materno">Apellido Materno:</label>
+        <input type="text" name="apellido_materno" required>
+      </div>
+
+      <div class="linea">
+        <label for="correo">Correo Institucional:</label>
+        <input type="email" name="correo" required>
+      </div>
+
+      <div class="linea">
+        <label for="carrera">Carrera:</label>
+        <select name="carrera" required>
+          <option value="">-- Selecciona una carrera --</option>
+          <option value="1">Ingeniería Informática</option>
+          <option value="2">Farmacia</option>
+          <option value="3">Veterinaria</option>
+          <option value="4">Medicina</option>
+        </select>
+      </div>
+
+      <div class="linea">
+        <label for="pago">Concepto de Pago:</label>
+        <select name="pago" required>
+          <option value="">-- Selecciona un pago --</option>
+          <option value="1">Matrícula Regular</option>
+          <option value="2">Crédito Académico</option>
+          <option value="3">Curso de Verano</option>
+          <option value="4">Mora por Pago Tardío</option>
+          <option value="5">Carnet Universitario</option>
+        </select>
+      </div>
+
+      <input type="submit" value="Registrar Estudiante">
+    </form>
+
+    <br>
+    <a href="{{ url_for('home') }}" class="btn-volver">Volver al Inicio</a>
+  </div>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Registrar Detalle de Pago</title>
+  <style>
+    body {
+      font-family: Tahoma, sans-serif;
+      background: url('https://piu.cinda.cl/sites/default/files/styles/institucion_instalaciones/public/2022-05/upch-1_0.jpg?itok=WNVp1Yx1') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      padding-top: 30px;
+    }
+
+    .ventana {
+      background-color: #ffffff;
+      border: 2px solid #999;
+      box-shadow: 3px 3px 10px #ccc;
+      width: 460px;
+      padding: 20px 30px;
+      border-radius: 10px;
+    }
+
+    h2 {
+      font-size: 18px;
+      background-color: #003366;
+      color: white;
+      padding: 10px;
+      margin: -20px -30px 20px -30px;
+      text-align: center;
+      border-radius: 10px 10px 0 0;
+    }
+
+    label {
+      display: inline-block;
+      width: 160px;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    input, select {
+      font-size: 14px;
+      width: 220px;
+      margin-bottom: 10px;
+    }
+
+    input[type="submit"] {
+      width: 100%;
+      padding: 8px 14px;
+      font-weight: bold;
+      background-color: #003366;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+      border-radius: 5px;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #00509e;
+    }
+
+    .linea {
+      margin-bottom: 12px;
+    }
+
+    .mensaje {
+      text-align: center;
+      color: green;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+  </style>
+
+  <script>
+    window.onload = function () {
+      const now = new Date();
+      document.getElementById("hora").value = now.toTimeString().substring(0, 5);
+    };
+  </script>
+</head>
+<body>
+  <div class="ventana">
+    <h2>Registrar Detalle de Pago</h2>
+
+    {% if mensaje %}
+      <p class="mensaje">{{ mensaje }}</p>
+    {% endif %}
+
+    <form method="POST" action="{{ url_for('registrar_pago') }}">
+
+      <!-- Mostrar nombre del concepto pero guardar el ID (numérico) -->
+      <div class="linea">
+        <label>Concepto de Pago:</label>
+        <span>{{ concepto }}</span>  <!-- Ej: Matrícula Regular -->
+        <input type="hidden" name="id_pago_academico" value="{{ id_pago_academico }}"> <!-- Ej: 1 -->
+      </div>
+
+      <div class="linea">
+        <label>Fecha:</label>
+        <input type="date" name="fecha" id="fecha_input" style="width: 140px;" required>
+      </div>
+
+      <div class="linea">
+        <label>Hora:</label>
+        <input type="time" id="hora" name="hora" required>
+      </div>
+
+      <div class="linea">
+        <label>Monto Pagado (S/):</label>
+        <input type="number" name="monto_pagado" step="0.01" required>
+      </div>
+
+      <div class="linea">
+        <label>Medio de Pago:</label>
+        <select name="medio_pago" required>
+          <option value="pos">POS</option>
+          <option value="online">Online</option>
+          <option value="efectivo">Efectivo</option>
+        </select>
+      </div>
+
+      <div class="linea">
+        <label>Nro. Operación:</label>
+        <input type="text" name="nro_operacion" required>
+      </div>
+
+      <div class="linea">
+        <label>¿Pago cubierto?</label>
+        <input type="checkbox" name="cubierto" value="1">
+      </div>
+
+      <div class="linea">
+        <label>ID Descuento:</label>
+        <select name="id_descuento" required>
+          <option value="1">Beca completa</option>
+          <option value="2">Tercio superior</option>
+          <option value="3">Ninguno</option>
+        </select>
+      </div>
+
+      <div class="linea">
+        <label>¿Aplica penalidad?</label>
+        <input type="checkbox" name="aplica_penalidad" value="1">
+      </div>
+
+      <input type="submit" value="Registrar Detalle">
+    </form>
+
+    <br>
+    <a href="{{ url_for('home') }}" class="btn-volver">Volver al Inicio</a>
+  </div>
+</body>
+</html>
