@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Crear Concepto de Pago</title>
+  <style>
+    body {
+      font-family: Tahoma, sans-serif;
+      background: url('https://piu.cinda.cl/sites/default/files/styles/institucion_instalaciones/public/2022-05/upch-1_0.jpg?itok=WNVp1Yx1') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      padding-top: 30px;
+    }
+
+    .ventana {
+      background-color: #ffffff;
+      border: 2px solid #999;
+      box-shadow: 3px 3px 10px #ccc;
+      width: 480px;
+      padding: 20px 30px;
+    }
+
+    h2 {
+      font-size: 18px;
+      background-color: #003366;
+      color: white;
+      padding: 8px;
+      margin: -20px -30px 20px -30px;
+      text-align: center;
+    }
+
+    label {
+      display: inline-block;
+      width: 160px;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    input, select {
+      font-size: 14px;
+      width: 220px;
+      margin-bottom: 10px;
+    }
+
+    input[type="checkbox"] {
+      width: auto;
+      margin-left: 10px;
+    }
+
+    input[type="submit"] {
+      width: auto;
+      padding: 6px 14px;
+      font-weight: bold;
+      background-color: #003366;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #00509e;
+    }
+
+    .linea {
+      margin-bottom: 10px;
+    }
+
+  </style>
+
+  <script>
+    const conceptos = {
+      "Matrícula Regular": { nombre: "Emision de matricula", monto: 80000.00 },
+      "Credito Academico": { nombre: "Emision de credito", monto: 750.00 },
+      "Curso de Verano": { nombre: "Emision de registro", monto: 3000.00 },
+      "Mora por Pago Tardio": { nombre: "Emision de pago", monto: 10.00 },
+      "Carnet Universitario": { nombre: "Pago por carnet", monto: 8.00 }
+    };
+
+    function actualizarCampos() {
+      const concepto = document.getElementById("concepto").value;
+      const datos = conceptos[concepto] || { nombre: "", monto: "" };
+      document.getElementById("nombre").value = datos.nombre;
+      document.getElementById("monto").value = datos.monto;
+    }
+
+    function toggleFechaInput() {
+      const sinFecha = document.getElementById("sin_fecha").checked;
+      document.getElementById("fecha").disabled = sinFecha;
+    }
+  </script>
+</head>
+<body>
+  <div class="ventana">
+    <h2>Crear Concepto de Pago</h2>
+    <form method="POST">
+      <div class="linea">
+        <label for="concepto">Concepto:</label>
+        <select id="concepto" name="concepto" onchange="actualizarCampos()" required>
+          <option value="">-- Selecciona --</option>
+          <option value="Matrícula Regular">Matrícula Regular</option>
+          <option value="Credito Academico">Crédito Académico</option>
+          <option value="Curso de Verano">Curso de Verano</option>
+          <option value="Mora por Pago Tardio">Mora por Pago Tardío</option>
+          <option value="Carnet Universitario">Carnet Universitario</option>
+        </select>
+      </div>
+
+      <div class="linea">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" readonly required>
+      </div>
+
+      <div class="linea">
+        <label for="monto">Monto (S/):</label>
+        <input type="number" id="monto" name="monto" step="0.01" readonly required>
+      </div>
+
+      <div class="linea">
+        <label for="fecha">Fecha Vencimiento:</label>
+        <input type="date" id="fecha" name="fecha">
+        <label><input type="checkbox" id="sin_fecha" onclick="toggleFechaInput()"> Ninguna</label>
+      </div>
+
+      <div class="linea">
+        <label for="tipo">Tipo:</label>
+        <select name="tipo" required>
+          <option value="Obligatorio">Obligatorio</option>
+          <option value="Opcional">Opcional</option>
+          <option value="Penalidad">Penalidad</option>
+        </select>
+      </div>
+
+      <div class="linea">
+        <label for="id_semestre">ID Semestre:</label>
+        <select name="id_semestre" required>
+          <option value="1">2024-1</option>
+          <option value="2">2024-2</option>
+          <option value="3">2025-1</option>
+        </select>
+      </div>
+
+      <div class="linea">
+        <label for="id_penalidad">ID Penalidad:</label>
+        <select name="id_penalidad" required>
+          <option value="1">Mora por Pago Tardío</option>
+          <option value="2">Incumplimiento de plazo</option>
+          <option value="3">Incumplimiento de pago</option>
+        </select>
+      </div>
+
+      <input type="submit" value="Crear">
+    </form>
+  </div>
+</body>
+</html>
+
